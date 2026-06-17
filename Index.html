@@ -1,0 +1,27 @@
+html<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Teste de Validação SEB</title>
+</head>
+<body onload="inicializarSEB()">
+
+    <h1>Validação do Safe Exam Browser</h1>
+    <p>Status do SEB: <strong id="status">Aguardando API...</strong></p>
+    <p>Hash da ConfigKey recebido: <code id="configKey">Nenhum</code></p>
+
+    <script>
+        function inicializarSEB() {
+            if (typeof SafeExamBrowser !== 'undefined' && SafeExamBrowser.security) {
+                SafeExamBrowser.security.updateKeys(function() {
+                    let hashCalculado = SafeExamBrowser.security.configKey;
+                    document.getElementById("status").innerText = "Conectado com Sucesso!";
+                    document.getElementById("configKey").innerText = hashCalculado;
+                });
+            } else {
+                document.getElementById("status").innerText = "Erro: Você não está usando o app SEB.";
+            }
+        }
+    </script>
+</body>
+</html>
